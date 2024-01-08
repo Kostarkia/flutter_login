@@ -1,0 +1,18 @@
+{
+  "welcome": "Welcome",
+  "sing_in_continune": "Sign in to continue.",
+  "email": "E-Mail",
+  "homePage": "Home Page",
+  "submit": "Submit",
+  "information": "Please enter your name.",
+  "requiredField": "Required Field",
+  "name": "Name",
+  "username": "User Name",
+  "login": "Login",
+  "password": "Password",
+  "forgot_password": "Forgot password?",
+  "hello_user": "Hello {user}",
+  "sign_up": "Sign Up",
+  "new_user": "New User",
+  "close": "Close"
+}

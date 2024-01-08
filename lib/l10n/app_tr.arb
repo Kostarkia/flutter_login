@@ -1,0 +1,18 @@
+{
+  "welcome": "Hoşgeldiniz",
+  "sing_in_continune": "Devam etmek için oturum açın.",
+  "email": "E-Posta",
+  "homePage": "Anasayfa",
+  "submit": "Gönder",
+  "information": "Lütfen adınızı giriniz.",
+  "requiredField": "Gerekli Alan",
+  "name": "Ad",
+  "username": "Kullanıcı Adı",
+  "login": "Giriş",
+  "password": "Şifre",
+  "forgot_password": "Şifreni mi unuttun?",
+  "hello_user": "Merhaba {user}",
+  "sign_up": "Kayıt Ol",
+  "new_user": "Yeni Kullanıcı",
+  "close": "Kapat"
+}
