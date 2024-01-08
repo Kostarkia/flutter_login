@@ -12,15 +12,19 @@ class LoginPage extends StatefulWidget {
   _LoginPageState createState() => _LoginPageState();
 }
 
+// ignore: unnecessary_new
 TextEditingController _controller = new TextEditingController();
+// ignore: unnecessary_new
 TextEditingController _controller2 = new TextEditingController();
 bool isEmailValid = false;
 
 class _LoginPageState extends State<LoginPage> {
+  // ignore: unused_field
   final GlobalKey<FormState> _key = GlobalKey<FormState>();
 
   String name = '';
 
+  // ignore: unused_element
   void _showSuccessDialog(String user) {
     showDialog(
       context: context,
@@ -70,9 +74,7 @@ class _LoginPageState extends State<LoginPage> {
               children: [
                 Container(
                   decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.white
-                  ),
+                      shape: BoxShape.circle, color: Colors.white),
                   child: const Icon(
                     Icons.person,
                     size: 50,
@@ -87,7 +89,9 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   onChanged: (Language? language) async {
                     if (language != null) {
+                      // ignore: no_leading_underscores_for_local_identifiers
                       Locale _locale = await setLocale(language.languageCode);
+                      // ignore: use_build_context_synchronously
                       Flutter_Login.setLocale(context, _locale);
                     }
                   },
@@ -122,14 +126,15 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               Text(
                 translation(context).welcome,
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
               const SizedBox(
                 height: 10,
               ),
               Text(
                 translation(context).sing_in_continune,
-                style: TextStyle(fontSize: 20),
+                style: const TextStyle(fontSize: 20),
               ),
               const SizedBox(
                 height: 50,
@@ -145,15 +150,15 @@ class _LoginPageState extends State<LoginPage> {
               Center(
                 child: Text(
                   translation(context).forgot_password,
-                  style: TextStyle(color: Colors.indigoAccent),
+                  style: const TextStyle(color: Colors.indigoAccent),
                 ),
               ),
               const SizedBox(
                 height: 50,
               ),
-              Center(
+              MaterialButton(
                 child: Container(
-                  width: 200,
+                  width: 300,
                   height: 50,
                   decoration: BoxDecoration(
                     color: Colors.indigoAccent,
@@ -169,6 +174,19 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
+                onPressed: () {
+                  String email = _controller.text; // Email değerini almak için
+                  String password =
+                      _controller2.text; // Şifre değerini almak için
+
+                  if (!isEmailValid || password.isEmpty) {
+                    _showSuccessDialog(
+                        "Lütfen eposta ve ya şifre alanını kontrol edin.");
+                    return;
+                  }
+
+                  _showSuccessDialog(email);
+                },
               ),
               const SizedBox(
                 height: 50,
@@ -179,7 +197,7 @@ class _LoginPageState extends State<LoginPage> {
                   Text(translation(context).new_user),
                   Text(
                     translation(context).sign_up,
-                    style: TextStyle(color: Colors.indigoAccent),
+                    style: const TextStyle(color: Colors.indigoAccent),
                   )
                 ],
               )
@@ -215,7 +233,7 @@ class _LoginPageState extends State<LoginPage> {
             padding: const EdgeInsets.only(left: 10.0),
             child: TextField(
               controller: controller,
-              decoration: InputDecoration(border: InputBorder.none),
+              decoration: const InputDecoration(border: InputBorder.none),
               onChanged: (value) {
                 if (title == translation(context).email) {
                   if (value.isEmpty) {
