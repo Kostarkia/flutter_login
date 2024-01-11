@@ -16,8 +16,33 @@ class Flutter_Login extends StatefulWidget {
   State<Flutter_Login> createState() => _Flutter_LoginState();
 
   static void setLocale(BuildContext context, Locale newLocale) {
-    _Flutter_LoginState? state = context.findAncestorStateOfType<_Flutter_LoginState>();
+    _Flutter_LoginState? state =
+        context.findAncestorStateOfType<_Flutter_LoginState>();
     state?.setLocale(newLocale);
+  }
+}
+
+// ignore: unused_element
+class DialogHelper {
+  static void showSuccessDialog(
+      BuildContext context, String header, String description) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(header),
+          content: Text(description),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Dialogu kapat
+              },
+              child: Text(translation(context).close),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
 

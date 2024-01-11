@@ -14,5 +14,11 @@
   "hello_user": "Merhaba {user}",
   "sign_up": "Kayıt Ol",
   "new_user": "Yeni Kullanıcı",
-  "close": "Kapat"
+  "close": "Kapat",
+  "success": "Başarılı",
+  "success_login": "Giriş başarılı",
+  "unsuccess": "Başarısız",
+  "unsuccess_login": "Giriş başarısız",
+  "error_header": "Hata",
+  "error_mail_or_password": "Lütfen e-posta veya şifre alanını kontrol ediniz."
 }

@@ -14,5 +14,11 @@
   "hello_user": "Hello {user}",
   "sign_up": "Sign Up",
   "new_user": "New User",
-  "close": "Close"
+  "close": "Close",
+  "success": "Success",
+  "success_login": "Login successful",
+  "unsuccess": "Unsuccess",
+  "unsuccess_login": "Login unsuccessful",
+  "error_header": "Error",
+  "error_mail_or_password": "Please check the e-mail or password field."
 }

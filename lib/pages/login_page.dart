@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_login/models/language_constants.dart';
-import 'package:flutter_login/models/languages.dart';
 import 'package:flutter_login/main.dart';
 import 'package:flutter_login/regex/validate.dart';
 
@@ -24,27 +23,6 @@ class _LoginPageState extends State<LoginPage> {
 
   String name = '';
 
-  // ignore: unused_element
-  void _showSuccessDialog(String user) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(translation(context).welcome),
-          content: Text(translation(context).hello_user(user)),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Dialogu kapat
-              },
-              child: Text(translation(context).close),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,6 +37,7 @@ class _LoginPageState extends State<LoginPage> {
     return Column(
       children: [
         Container(
+          padding: const EdgeInsets.all(10.0),
           width: double.infinity,
           height: 250,
           decoration: const BoxDecoration(
@@ -68,51 +47,16 @@ class _LoginPageState extends State<LoginPage> {
                 bottomRight: Radius.elliptical(60, 60)),
           ),
           child: Padding(
-            padding: const EdgeInsets.only(top: 150.0, left: 40, right: 40),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  decoration: const BoxDecoration(
-                      shape: BoxShape.circle, color: Colors.white),
-                  child: const Icon(
-                    Icons.person,
-                    size: 50,
-                  ),
-                ),
-                DropdownButton<Language>(
-                  underline: const SizedBox(),
-                  icon: const Icon(
-                    Icons.language,
-                    color: Colors.white,
-                    size: 50,
-                  ),
-                  onChanged: (Language? language) async {
-                    if (language != null) {
-                      // ignore: no_leading_underscores_for_local_identifiers
-                      Locale _locale = await setLocale(language.languageCode);
-                      // ignore: use_build_context_synchronously
-                      Flutter_Login.setLocale(context, _locale);
-                    }
-                  },
-                  items: Language.languageList()
-                      .map<DropdownMenuItem<Language>>(
-                        (e) => DropdownMenuItem<Language>(
-                          value: e,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              Text(
-                                e.name,
-                                style: const TextStyle(fontSize: 20),
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                      .toList(),
-                ),
-              ],
+            padding: const EdgeInsets.only(top: 100.0),
+            child: Container(
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white,
+              ),
+              child: const Icon(
+                Icons.person,
+                size: 90,
+              ),
             ),
           ),
         ),
@@ -143,51 +87,69 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(
                 height: 20,
               ),
-              inputForm(translation(context).password, _controller2),
+              inputForm(translation(context).password, _controller2,
+                  obscureText: true),
               const SizedBox(
                 height: 10,
               ),
               Center(
+                child: GestureDetector(
+                onTap: (){
+                  DialogHelper.showSuccessDialog(context, "Not Yet", "No action available at this time");
+                },                  
                 child: Text(
                   translation(context).forgot_password,
                   style: const TextStyle(color: Colors.indigoAccent),
+                )
                 ),
               ),
               const SizedBox(
                 height: 50,
               ),
               MaterialButton(
-                child: Container(
-                  width: 300,
-                  height: 50,
-                  decoration: BoxDecoration(
-                    color: Colors.indigoAccent,
-                    borderRadius: BorderRadius.circular(25),
-                  ),
-                  child: Center(
-                    child: Text(
-                      translation(context).login,
-                      style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold),
+                  child: Container(
+                    width: 300,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.indigoAccent,
+                      borderRadius: BorderRadius.circular(25),
+                    ),
+                    child: Center(
+                      child: Text(
+                        translation(context).login,
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
-                ),
-                onPressed: () {
-                  String email = _controller.text; // Email değerini almak için
-                  String password =
-                      _controller2.text; // Şifre değerini almak için
+                  onPressed: () {
+                    String email =
+                        _controller.text; // Email değerini almak için
+                    String password =
+                        _controller2.text; // Şifre değerini almak için
 
-                  if (!isEmailValid || password.isEmpty) {
-                    _showSuccessDialog(
-                        "Lütfen eposta ve ya şifre alanını kontrol edin.");
-                    return;
-                  }
+                    if (!isEmailValid || password.isEmpty) {
+                      DialogHelper.showSuccessDialog(
+                          context,
+                          translation(context).error_header,
+                          translation(context).error_mail_or_password);
 
-                  _showSuccessDialog(email);
-                },
-              ),
+                      return;
+                    } else if (email == "ferhatblt367@gmail.com" &&
+                        password == "123456") {
+                      DialogHelper.showSuccessDialog(
+                          context,
+                          translation(context).success,
+                          translation(context).success_login);
+                    } else {
+                      DialogHelper.showSuccessDialog(
+                          context,
+                          translation(context).unsuccess,
+                          translation(context).unsuccess_login);
+                    }
+                  }),
               const SizedBox(
                 height: 50,
               ),
@@ -208,7 +170,8 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget inputForm(String title, TextEditingController controller) {
+  Widget inputForm(String title, TextEditingController controller,
+      {bool obscureText = false}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -226,13 +189,14 @@ class _LoginPageState extends State<LoginPage> {
                         ? Colors.grey
                         : isEmailValid
                             ? Colors.green
-                            : Colors.red)
+                            : Colors.redAccent)
                 : Border.all(width: 0.5, color: Colors.grey),
           ),
           child: Padding(
             padding: const EdgeInsets.only(left: 10.0),
             child: TextField(
               controller: controller,
+              obscureText: obscureText,
               decoration: const InputDecoration(border: InputBorder.none),
               onChanged: (value) {
                 if (title == translation(context).email) {
